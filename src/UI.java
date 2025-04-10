@@ -11,25 +11,40 @@ public class UI extends JFrame implements ActionListener {
   private CustomTextField area;
     private int num1, num2, rez;
     private String operator;
+    private JTextArea CustomTextArea;
    public UI(){
 
 
+
+
         setSize(400,500);
-        setLayout(new BorderLayout());
+        setLayout(null);
+
 
 
         area = new CustomTextField("0");
         area.setFont(new Font("Arial",Font.BOLD,30));
         area.setHorizontalAlignment(JTextField.RIGHT);
         area.setEditable(true);
+        area.setBounds(0,0,385,45);
 
 
+        JPanel panel = new JPanel(new GridLayout(5,4));
+        panel.setBounds(0,45,400,455);
 
 
-        JPanel panel = new JPanel(new GridLayout(4,4));
+       CustomTextArea = new JTextArea();
+       CustomTextArea.setFont(new Font("Arial", Font.BOLD, 15));
+       CustomTextArea.setEditable(false);
+       CustomTextArea.setBackground(Color.green);
+       CustomTextArea.setLayout(new FlowLayout(FlowLayout.RIGHT));
+       CustomTextArea.setBounds(0,409,400,60);
+
+
 
         JButton[] buttons = new JButton[16];
         add(area, BorderLayout.NORTH);
+        add(CustomTextArea);
 
 
 
@@ -131,13 +146,11 @@ public class UI extends JFrame implements ActionListener {
                 if (operator == null || area.getText().isEmpty())return;
                 num2 = Integer.parseInt(area.getText());
 
+
                 switch (operator){
                     case "/":
                         if (num2 != 0){
                             rez = num1/num2;
-                        }
-                        if (num2 == 0){
-                           area.setText("Доброго вечора, Іді нахуй!");
                         }
                         break;
                     case "*":
@@ -150,13 +163,34 @@ public class UI extends JFrame implements ActionListener {
                         rez = num1+num2;
                         break;
                 }
-                area.setText(String.valueOf(rez));
+                if (num2 !=0) {
+                    area.setText(String.valueOf(rez));
+                }
+                else {area.setText("Доброго вечора, ІДІ НАХУЙ");}
                 area.setRezl("");
+
+                String StringRez = num1 + " " + operator + " " + num2 + " = "+ rez ;
+                String temp = CustomTextArea.getText();
+                if (temp.equals("")){
+                    CustomTextArea.setText(StringRez);
+                }
+                else {
+                    CustomTextArea.setText(temp+", "+StringRez);
+                }
+                DataBase dataBase = new DataBase(StringRez);
+                dataBase.load();
+
                 break;
+
+
+
+
+
 
             case "del":
                 area.setText("");
                 area.setRezl("");
+                CustomTextArea.setText("");
                 break;
 
             default:
