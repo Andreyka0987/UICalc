@@ -166,7 +166,7 @@ public class UI extends JFrame implements ActionListener {
                 if (num2 !=0) {
                     area.setText(String.valueOf(rez));
                 }
-                else {area.setText("Доброго вечора, ІДІ НАХУЙ");}
+                else {area.setText("Доброго вечора, *** *****");}
                 area.setRezl("");
 
                 String StringRez = num1 + " " + operator + " " + num2 + " = "+ rez ;
